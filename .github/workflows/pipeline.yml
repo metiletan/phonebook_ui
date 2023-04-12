@@ -1,0 +1,19 @@
+name: build and deploy #name of pipeline
+on: push 
+  branches:
+    - 'master' #подiя яка викликає запуск pipeline (у нас push)
+#this pipeline must build a docker image and deploy it on K8s cluster
+env: #змінні, які доступні для кроків усіх завдань у пайплайні
+  DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }} #назва репозиторiю на docker.io
+  DOCKER_HUB_PASS: ${{ secrets.DOCKER_HUB_PASS }} #пароль вiд DOCKER HUB
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }} #iм'я користувача на DOCKER HUB
+jobs: #завдання для виконання якi за замовченням виконуются паралельно
+  build:
+    name: Build Docker Image #назва job для pipeline
+    runs-on: ubuntu-latest #середовище де запускається цей job (build)
+    container: "docker:latest" #контейнер, у якому будуть виконуватися кроки цієї job
+    steps: #кроки виконання
+      - name: Checkout source code
+        uses: actions/checkout@v2 #checkout робить pull репозиторію та гілки, в якому запущений. Таким чином, ми отримуємо доступ до коду.
+      - name: Build and push image
+        run: sh pipeline_scripts/build.sh #запуск скрипту з файлу build.sh
