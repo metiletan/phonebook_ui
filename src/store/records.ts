@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 
 import { PhonebookRecord } from '@/store/types'
+import axios from 'axios';
 
 export const useRecordsStore = defineStore('records', {
   state: () => ({
@@ -11,18 +12,11 @@ export const useRecordsStore = defineStore('records', {
 
   actions: {
     async fetchAllRecords(){
-      this.allRecords = [
-        {
-          id: "dead-beef-caffe",
-          first_name: "John",
-          phone_number: "0-12345-67890",
-        },
-        {
-          id: "asdasdasd-asdasd",
-          first_name: "Jane",
-          phone_number: "937-99-92",
-        },
-      ]
+      const response = await axios.get<PhonebookRecord[]>(
+        "http://api.sre-phonebook.online/records/"
+      );
+
+      this.allRecords = response.data;
    }
   }
 });
