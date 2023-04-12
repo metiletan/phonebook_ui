@@ -1,7 +1,8 @@
 name: build and deploy #name of pipeline
-on: push 
-  branches:
-    - 'master' #подiя яка викликає запуск pipeline (у нас push)
+on: 
+  push: 
+    branches:
+      - 'master' #подiя яка викликає запуск pipeline (у нас push)
 #this pipeline must build a docker image and deploy it on K8s cluster
 env: #змінні, які доступні для кроків усіх завдань у пайплайні
   DOCKER_HUB_REPOSITORY: ${{ vars.DOCKER_HUB_REPOSITORY }} #назва репозиторiю на docker.io
