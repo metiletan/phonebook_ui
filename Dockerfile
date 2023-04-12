@@ -5,4 +5,4 @@ RUN yarn install
 RUN yarn build
 
 FROM docker.io/nginx:1.24-alpine
-COPY --from=nodejs /sourses/dist /usr/share/nginx/html
+COPY --from=nodejs /sources/dist /usr/share/nginx/html
