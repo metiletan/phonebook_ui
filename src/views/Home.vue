@@ -10,7 +10,7 @@
       >
         <template v-slot:prepend>
           <v-avatar color="grey-lighten-1">
-            <v-icon color="white">mdi-account</v-icon>
+            <v-icon color="white">mdi-account-outline</v-icon>
           </v-avatar>
         </template>
 
