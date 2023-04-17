@@ -18,3 +18,13 @@ jobs: #завдання для виконання якi за замовченн�
         uses: actions/checkout@v2 #checkout робить pull репозиторію та гілки, в якому запущений. Таким чином, ми отримуємо доступ до коду.
       - name: Build and push image
         run: sh pipeline_scripts/build.sh #запуск скрипту з файлу build.sh
+  deploy:
+    name: Deploy Docker Image To K8s #назва job для pipeline
+    runs-on: ubuntu-latest #середовище де запускається цей job (build)
+    container: "docker.io/tponomarenko/docker_aws_kubectl:latest" #контейнер, у якому будуть виконуватися кроки цієї job
+    needs: build
+    steps: #кроки виконання
+      - name: Checkout source code
+        uses: actions/checkout@v2 #checkout робить pull репозиторію та гілки, в якому запущений. Таким чином, ми отримуємо доступ до коду.
+      - name: Run Helm to deploy phonebook-ui to k8s
+        run: sh pipeline_scripts/deploy.sh #запуск скрипту з файлу build.sh      

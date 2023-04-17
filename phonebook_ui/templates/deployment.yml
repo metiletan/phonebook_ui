@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook-ui-deployment
+  labels:
+    app: phonebook-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: phonebook-ui
+  template:
+    metadata:
+      labels:
+        app: phonebook-ui
+    spec:
+      containers:
+      - name: container
+        image: docker.io/annettestr/phonebook_ui:{{ .Values.imageTag }}
+        ports:
+        - containerPort: 80

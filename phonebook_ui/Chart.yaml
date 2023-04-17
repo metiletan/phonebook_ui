@@ -1,0 +1,7 @@
+apiVersion: v2
+name: phonebook-ui
+description: A Helm chart for phonebook ui
+
+type: application
+
+version: 0.1.0
